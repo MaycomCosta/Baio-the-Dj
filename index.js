@@ -164,14 +164,6 @@ client.on('message', async(msg) => {
         servers[msg.guild.id].dispatcher.resume()
     }
 
-    if (msg.content === prefix + 'skip') {
-        servers[msg.guild.id].dispatcher.skip()
-    }
-
-    if (msg.content === 'olá') {
-        msg.reply('olá!')
-    }
-
 })
 
 const playMusic = (msg) => {
