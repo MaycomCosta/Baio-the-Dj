@@ -155,7 +155,7 @@ client.on('message', async(msg) => {
         }
     }
 
-
+try{
     if (msg.content === prefix + 'pause') {
         servers[msg.guild.id].dispatcher.pause()
     }
@@ -163,7 +163,9 @@ client.on('message', async(msg) => {
     if (msg.content === prefix + 'resume') {
         servers[msg.guild.id].dispatcher.resume()
     }
-
+}catch(err){
+    console.log(err)
+}
 })
 
 const playMusic = (msg) => {
