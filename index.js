@@ -34,7 +34,7 @@ client.on('ready', () => {
     console.log('i am online!')
 })
 
-client.on('message', async(msg) => {
+client.on('message', async (msg) => {
 
     // filters
 
@@ -110,62 +110,63 @@ client.on('message', async(msg) => {
                     }
 
                     const embed = new Discord.MessageEmbed()
-                    .setColor(255,76,37)
-                    .setAuthor('BaioTheDJ🐴😎')
-                    .setDescription('pick your music of 1-5!')
+                        .setColor(255, 76, 37)
+                        .setAuthor('BaioTheDJ🐴😎')
+                        .setDescription('pick your music of 1-5!')
 
                     //#################################
 
                     for (let i in listResults) {
                         embed.addField(
-                        `${parseInt(i) + 1}: ${listResults[i].videoTitle}`,
-                        listResults[i].channelName    
-                    )
+                            `${parseInt(i) + 1}: ${listResults[i].videoTitle}`,
+                            listResults[i].channelName
+                        )
                     }
 
                     msg.channel.send(embed)
-                    .then((embedMessage) =>{
-                        const possibelReaction = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣']
+                        .then((embedMessage) => {
+                            const possibelReaction = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣']
 
-                        for (let i = 0; i < possibelReaction.length; i++) {
-                            embedMessage.react(possibelReaction[i])
-                        }
+                            for (let i = 0; i < possibelReaction.length; i++) {
+                                embedMessage.react(possibelReaction[i])
+                            }
 
-                        const filter = (reaction, user) => {
-                            return possibelReaction.includes(reaction.emoji.name)
-                                && user.id === msg.author.id
-                        }
+                            const filter = (reaction, user) => {
+                                return possibelReaction.includes(reaction.emoji.name)
+                                    && user.id === msg.author.id
+                            }
 
-                        embedMessage.awaitReactions(filter, { max: 1, time: 20000, errors: ['time']})
-                        .then((collected) =>{
-                            const reaction = collected.first()
-                            const idOptionSelected = possibelReaction.indexOf(reaction.emoji.name)
+                            embedMessage.awaitReactions(filter, { max: 1, time: 20000, errors: ['time'] })
+                                .then((collected) => {
+                                    const reaction = collected.first()
+                                    const idOptionSelected = possibelReaction.indexOf(reaction.emoji.name)
 
-                            msg.channel.send(`you choose ${listResults[idOptionSelected].videoTitle} of ${listResults[idOptionSelected].channelName} (good music bro 😉)`)
+                                    msg.channel.send(`you choose ${listResults[idOptionSelected].videoTitle} of ${listResults[idOptionSelected].channelName} (good music bro 😉)`)
 
-                            servers[msg.guild.id].queue.push(listResults[idOptionSelected].id)
-                            playMusic(msg)
-                        }).catch((error) =>{
-                            msg.reply(`bro you didn't choose any song 🙁 `)
+                                    servers[msg.guild.id].queue.push(listResults[idOptionSelected].id)
+                                    playMusic(msg)
+                                }).catch((error) => {
+                                    msg.reply(`bro you didn't choose any song 🙁 `)
+                                })
+
                         })
-                
-                    })
                 }
             })
         }
     }
 
-try{
+
     if (msg.content === prefix + 'pause') {
         servers[msg.guild.id].dispatcher.pause()
     }
 
     if (msg.content === prefix + 'resume') {
-        servers[msg.guild.id].dispatcher.resume()
+        try {
+            servers[msg.guild.id].dispatcher.resume()
+        } catch (err) {
+            console.log(err)
+        }
     }
-}catch(err){
-    console.log(err)
-}
 })
 
 const playMusic = (msg) => {
@@ -192,13 +193,13 @@ const playMusic = (msg) => {
 }
 
 const loadServer = () => {
-    fs.readFile('serverList.json','utf8', (err, data) => {
+    fs.readFile('serverList.json', 'utf8', (err, data) => {
         if (err) {
             console.log('error reading server list')
             console.log(err)
-        }else{
+        } else {
             const objRead = JSON.parse(data)
-            for (let i in objRead.servers){
+            for (let i in objRead.servers) {
                 servers[objRead.servers[i]] = {
                     connection: null,
                     dispatcher: null,
@@ -211,17 +212,17 @@ const loadServer = () => {
 }
 
 const saveServer = (idNewServer) => {
-    fs.readFile('serverList.json','utf8', (err, data) => {
+    fs.readFile('serverList.json', 'utf8', (err, data) => {
         if (err) {
             console.log('there was an error reading the file')
             console.log(err)
-        }else{
+        } else {
             const objRead = JSON.parse(data)
             objRead.servers.push(idNewServer)
             const objWrite = JSON.stringify(objRead)
 
-            fs.writeFile('serverList.Json', objWrite, 'utf8', () => {})
+            fs.writeFile('serverList.Json', objWrite, 'utf8', () => { })
         }
     })
 }
-    client.login(configs.TOKEN_DISCORD)
+client.login(configs.TOKEN_DISCORD)
