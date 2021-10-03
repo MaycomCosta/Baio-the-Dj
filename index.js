@@ -49,6 +49,18 @@ client.on('message', async (msg) => {
 
     // commands 
 
+    if (msg.content === prefix + 'pause') {
+        servers[msg.guild.id].dispatcher.pause()
+    }
+
+    if (msg.content === prefix + 'resume') {
+        try {
+            servers[msg.guild.id].dispatcher.resume()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     if (msg.content === prefix + 'join') {
         try {
             servers[msg.guild.id].connection = await msg.member.voice.channel.join()
@@ -152,19 +164,6 @@ client.on('message', async (msg) => {
                         })
                 }
             })
-        }
-    }
-
-
-    if (msg.content === prefix + 'pause') {
-        servers[msg.guild.id].dispatcher.pause()
-    }
-
-    if (msg.content === prefix + 'resume') {
-        try {
-            servers[msg.guild.id].dispatcher.resume()
-        } catch (err) {
-            console.log(err)
         }
     }
 })
