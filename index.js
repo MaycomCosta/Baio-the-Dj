@@ -56,15 +56,17 @@ client.on('message', async (msg) => {
     if (msg.content === prefix + 'pause') {
         servers[msg.guild.id].dispatcher.pause()
         msg.channel.send(`Now is paused bro, relax😌`)
-    }else{
-        msg.channel.send(`The music is already pause 😑`) 
+    } else {
+        msg.channel.send(`The music is already pause 😑`)
     }
 
     if (msg.content === prefix + 'resume') {
-        servers[msg.guild.id].dispatcher.resume()
-        msg.channel.send(`Keep going music🐴`)
-    }else{
-        msg.channel.send(`No music is paused, are u 🤪`) 
+        if (servers[msg.guild.id].dispatcher) {
+            servers[msg.guild.id].dispatcher.resume()
+            msg.channel.send(`Keep going music🐴`)
+        }
+    } else {
+        msg.channel.send(`No music is paused, are u 🤪`)
     }
 
     if (msg.content === prefix + 'clean') {
@@ -81,15 +83,15 @@ client.on('message', async (msg) => {
 
     if (msg.content === prefix + 'skip') {
         if (servers[msg.guild.id].dispatcher) {
-            if(servers[msg.guild.id].queue.length > 1) {
+            if (servers[msg.guild.id].queue.length > 1) {
                 servers[msg.guild.id].dispatcher.end()
-            }else {
+            } else {
                 msg.channel.send(`Bro... don't exist more musics to play`)
             }
-        } 
+        }
     }
 
-    if (msg.content === prefix + 'qual a boa?') {
+    if (msg.content === 'qual a boa?') {
         msg.channel.send(`Bro... shut up, and choose a music😡`)
     }
 
