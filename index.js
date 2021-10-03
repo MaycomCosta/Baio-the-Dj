@@ -61,9 +61,9 @@ client.on('message', async (msg) => {
             servers[msg.guild.id].dispatcher.resume()
     }
 
-    if (msg.content === prefix + 'finish') {
+    if (msg.content === prefix + 'end') {
         if(servers[msg.guild.id].dispatcher){
-            servers[msg.guild.id].dispatcher.finish()
+            servers[msg.guild.id].dispatcher.end()
             while(servers[msg.guild.id].queue.length > 0){
                 servers[msg.guild.id].queue.shift()
             }
