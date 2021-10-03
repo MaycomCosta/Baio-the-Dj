@@ -58,20 +58,31 @@ client.on('message', async (msg) => {
     }
 
     if (msg.content === prefix + 'resume') {
-            servers[msg.guild.id].dispatcher.resume()
+        servers[msg.guild.id].dispatcher.resume()
     }
 
     if (msg.content === prefix + 'end') {
-        if(servers[msg.guild.id].dispatcher){
+        if (servers[msg.guild.id].dispatcher) {
             servers[msg.guild.id].dispatcher.end()
-            while(servers[msg.guild.id].queue.length > 0){
+            while (servers[msg.guild.id].queue.length > 0) {
                 servers[msg.guild.id].queue.shift()
             }
-        }else{
+        } else {
             msg.channel.send(`i am not playing any music bro!`)
         }
-        
     }
+
+    if (msg.content === prefix + 'skip') {
+        if (servers[msg.guild.id].dispatcher) {
+            if(servers[msg.guild.id].queue.length > 1) {
+                servers[msg.guild.id].dispatcher.end()
+            }else {
+                msg.channel.send(`bro... don't exist more musics to play`)
+            }
+        } 
+    }
+
+
 
     if (msg.content === prefix + 'join') {
         try {
@@ -170,7 +181,7 @@ client.on('message', async (msg) => {
                                     servers[msg.guild.id].queue.push(listResults[idOptionSelected].id)
                                     playMusic(msg)
                                 }).catch((error) => {
-                                    msg.reply(`bro you didn't choose any song 🙁 `)
+                                    msg.reply(`are you kidding me ? choose faster dude 🙁 `)
                                 })
 
                         })
