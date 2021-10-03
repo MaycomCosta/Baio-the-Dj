@@ -61,7 +61,7 @@ client.on('message', async (msg) => {
         servers[msg.guild.id].dispatcher.resume()
     }
 
-    if (msg.content === prefix + 'end') {
+    if (msg.content === prefix + 'clean') {
         if (servers[msg.guild.id].dispatcher) {
             servers[msg.guild.id].dispatcher.end()
             while (servers[msg.guild.id].queue.length > 0) {
