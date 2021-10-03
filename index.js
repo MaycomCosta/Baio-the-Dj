@@ -61,9 +61,17 @@ client.on('message', async (msg) => {
             servers[msg.guild.id].dispatcher.resume()
     }
 
-    if (msg.content === prefix + 'skip') {
-        servers[msg.guild.id].dispatcher.skip()
-}
+    if (msg.content === prefix + 'finish') {
+        if(servers[msg.guild.id].dispatcher){
+            servers[msg.guild.id].dispatcher.finish()
+            while(servers[msg.guild.id].queue.length > 0){
+                servers[msg.guild.id].queue.shift()
+            }
+        }else{
+            msg.channel.send(`i am not playing any music bro!`)
+        }
+        
+    }
 
     if (msg.content === prefix + 'join') {
         try {
