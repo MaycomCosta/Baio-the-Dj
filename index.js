@@ -4,7 +4,11 @@ const ytdl = require('ytdl-core')
 const configs = require('./config.json')
 const fs = require('fs')
 
-const prefix = configs.PREFIX
+const prefix = '-'
+
+const YTDL = {
+    filter: audioonly
+}
 
 const youtube = new google.youtube_v3.Youtube({
     version: 'v3',
@@ -174,7 +178,7 @@ const playMusic = (msg) => {
         const playing = servers[msg.guild.id].queue[0]
         servers[msg.guild.id].imPlaying = true
 
-        servers[msg.guild.id].dispatcher = servers[msg.guild.id].connection.play(ytdl(playing, configs.YTDL))
+        servers[msg.guild.id].dispatcher = servers[msg.guild.id].connection.play(ytdl(playing, YTDL))
 
         servers[msg.guild.id].dispatcher.on('finish', () => {
             servers[msg.guild.id].queue.shift()
