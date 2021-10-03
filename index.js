@@ -7,7 +7,7 @@ const fs = require('fs')
 const prefix = '-'
 
 const YTDL = {
-    filter: audioonly
+    filter: 'audioonly'
 }
 
 const youtube = new google.youtube_v3.Youtube({
