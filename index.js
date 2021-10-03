@@ -53,49 +53,6 @@ client.on('message', async (msg) => {
 
     // commands 
 
-    if (msg.content === prefix + 'pause') {
-        servers[msg.guild.id].dispatcher.pause()
-        msg.channel.send(`Now is paused bro, relax😌`)
-    } else {
-        msg.channel.send(`The music is already pause 😑`)
-    }
-
-    if (msg.content === prefix + 'resume') {
-        if (servers[msg.guild.id].dispatcher) {
-            servers[msg.guild.id].dispatcher.resume()
-            msg.channel.send(`Keep going music🐴`)
-        }
-    } else {
-        msg.channel.send(`No music is paused, are u 🤪`)
-    }
-
-    if (msg.content === prefix + 'clean') {
-        if (servers[msg.guild.id].dispatcher) {
-            servers[msg.guild.id].dispatcher.end()
-            while (servers[msg.guild.id].queue.length > 0) {
-                servers[msg.guild.id].queue.shift()
-                msg.channel.send(`All clean boss!😉`)
-            }
-        } else {
-            msg.channel.send(`I am not playing any music bro!`)
-        }
-    }
-
-    if (msg.content === prefix + 'skip') {
-        if (servers[msg.guild.id].dispatcher) {
-            if (servers[msg.guild.id].queue.length > 1) {
-                servers[msg.guild.id].dispatcher.end()
-            } else {
-                msg.channel.send(`Bro... don't exist more musics to play`)
-            }
-        }
-    }
-
-    if (msg.content === 'qual a boa?') {
-        msg.channel.send(`Bro... shut up, and choose a music😡`)
-    }
-
-
     if (msg.content === prefix + 'join') {
         try {
             servers[msg.guild.id].connection = await msg.member.voice.channel.join()
@@ -201,6 +158,44 @@ client.on('message', async (msg) => {
             })
         }
     }
+
+    if (msg.content === prefix + 'pause') {
+        servers[msg.guild.id].dispatcher.pause()
+        msg.channel.send(`Now is paused bro, relax😌`)
+    }
+
+    if (msg.content === prefix + 'resume') {
+        servers[msg.guild.id].dispatcher.resume()
+        msg.channel.send(`Keep going music🐴`)
+    } 
+
+     if (msg.content === prefix + 'clean') {
+        if (servers[msg.guild.id].dispatcher) {
+            servers[msg.guild.id].dispatcher.end()
+            while (servers[msg.guild.id].queue.length > 0) {
+                servers[msg.guild.id].queue.shift()
+                msg.channel.send(`All clean boss!😉`)
+            }
+        } else {
+            msg.channel.send(`I am not playing any music bro!`)
+        }
+    }
+
+    if (msg.content === prefix + 'skip') {
+        if (servers[msg.guild.id].dispatcher) {
+            if (servers[msg.guild.id].queue.length > 1) {
+                servers[msg.guild.id].dispatcher.end()
+            } else {
+                msg.channel.send(`Bro... don't exist more musics to play`)
+            }
+        }
+    }
+
+    if (msg.content === 'qual a boa?') {
+        msg.channel.send(`Bro... shut up, and choose a music😡`)
+    }
+
+
 })
 
 const playMusic = (msg) => {
