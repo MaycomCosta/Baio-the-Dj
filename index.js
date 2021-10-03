@@ -58,11 +58,7 @@ client.on('message', async (msg) => {
     }
 
     if (msg.content === prefix + 'resume') {
-        try {
             servers[msg.guild.id].dispatcher.resume()
-        } catch (err) {
-            console.log(err)
-        }
     }
 
     if (msg.content === prefix + 'join') {
