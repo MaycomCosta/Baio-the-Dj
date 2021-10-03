@@ -20,8 +20,8 @@ const servers = []
 
 client.on('guildCreate', (guild) => {
 
-    console.log(`id of the guild i joined: ${guild.id}`)
-    console.log(`name of the guild i joined: ${guild.name}`)
+    console.log(`Id of the guild i joined: ${guild.id}`)
+    console.log(`Name of the guild i joined: ${guild.name}`)
 
     servers[guild.id] = {
         connection: null,
@@ -47,7 +47,7 @@ client.on('message', async (msg) => {
     if (!msg.content.startsWith(prefix)) return
 
     if (!msg.member.voice.channel) {
-        msg.channel.send(`hey you are not in a voice channel!`)
+        msg.channel.send(`Hey you are not in a voice channel!`)
         return
     }
 
@@ -55,10 +55,16 @@ client.on('message', async (msg) => {
 
     if (msg.content === prefix + 'pause') {
         servers[msg.guild.id].dispatcher.pause()
+        msg.channel.send(`Now is paused bro, relax😌`)
+    }else{
+        msg.channel.send(`The music is already pause 😑`) 
     }
 
     if (msg.content === prefix + 'resume') {
         servers[msg.guild.id].dispatcher.resume()
+        msg.channel.send(`Keep going music🐴`)
+    }else{
+        msg.channel.send(`No music is paused, are u 🤪`) 
     }
 
     if (msg.content === prefix + 'clean') {
@@ -66,9 +72,10 @@ client.on('message', async (msg) => {
             servers[msg.guild.id].dispatcher.end()
             while (servers[msg.guild.id].queue.length > 0) {
                 servers[msg.guild.id].queue.shift()
+                msg.channel.send(`All clean boss!😉`)
             }
         } else {
-            msg.channel.send(`i am not playing any music bro!`)
+            msg.channel.send(`I am not playing any music bro!`)
         }
     }
 
@@ -77,11 +84,14 @@ client.on('message', async (msg) => {
             if(servers[msg.guild.id].queue.length > 1) {
                 servers[msg.guild.id].dispatcher.end()
             }else {
-                msg.channel.send(`bro... don't exist more musics to play`)
+                msg.channel.send(`Bro... don't exist more musics to play`)
             }
         } 
     }
 
+    if (msg.content === prefix + 'qual a boa?') {
+        msg.channel.send(`Bro... shut up, and choose a music😡`)
+    }
 
 
     if (msg.content === prefix + 'join') {
@@ -105,7 +115,7 @@ client.on('message', async (msg) => {
         let whatToPlay = msg.content.slice(6)
 
         if (whatToPlay.lenth === 0) {
-            msg.channel.send(`i need something to play!`)
+            msg.channel.send(`I need something to play!`)
             return
         }
 
@@ -147,7 +157,7 @@ client.on('message', async (msg) => {
                     const embed = new Discord.MessageEmbed()
                         .setColor(255, 76, 37)
                         .setAuthor('BaioTheDJ🐴😎')
-                        .setDescription('pick your music of 1-5!')
+                        .setDescription('Pick your music of 1-5!')
 
                     //#################################
 
@@ -176,12 +186,12 @@ client.on('message', async (msg) => {
                                     const reaction = collected.first()
                                     const idOptionSelected = possibelReaction.indexOf(reaction.emoji.name)
 
-                                    msg.channel.send(`you choose ${listResults[idOptionSelected].videoTitle} of ${listResults[idOptionSelected].channelName} (good music bro 😉)`)
+                                    msg.channel.send(`you choose ${listResults[idOptionSelected].videoTitle} of ${listResults[idOptionSelected].channelName} (Good music bro 😉)`)
 
                                     servers[msg.guild.id].queue.push(listResults[idOptionSelected].id)
                                     playMusic(msg)
                                 }).catch((error) => {
-                                    msg.reply(`are you kidding me ? choose faster dude 🙁 `)
+                                    msg.reply(`Are you kidding me ? choose faster dude 🙁 `)
                                 })
 
                         })
@@ -217,7 +227,7 @@ const playMusic = (msg) => {
 const loadServer = () => {
     fs.readFile('serverList.json', 'utf8', (err, data) => {
         if (err) {
-            console.log('error reading server list')
+            console.log('Error reading server list')
             console.log(err)
         } else {
             const objRead = JSON.parse(data)
@@ -236,7 +246,7 @@ const loadServer = () => {
 const saveServer = (idNewServer) => {
     fs.readFile('serverList.json', 'utf8', (err, data) => {
         if (err) {
-            console.log('there was an error reading the file')
+            console.log('There was an error reading the file')
             console.log(err)
         } else {
             const objRead = JSON.parse(data)
