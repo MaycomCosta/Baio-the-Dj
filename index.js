@@ -61,6 +61,10 @@ client.on('message', async (msg) => {
             servers[msg.guild.id].dispatcher.resume()
     }
 
+    if (msg.content === prefix + 'skip') {
+        servers[msg.guild.id].dispatcher.skip()
+}
+
     if (msg.content === prefix + 'join') {
         try {
             servers[msg.guild.id].connection = await msg.member.voice.channel.join()
