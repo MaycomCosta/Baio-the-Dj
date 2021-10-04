@@ -192,7 +192,7 @@ client.on('message', async (msg) => {
         }
     }
 
-    if (msg.content === 'qual a boa?' || 'qual é a boa?') {
+    if (msg.content === 'qual a boa?') {
         msg.reply(`Bro... shut up, and choose a music😡`)
     }
 })
