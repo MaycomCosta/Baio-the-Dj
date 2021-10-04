@@ -191,11 +191,9 @@ client.on('message', async (msg) => {
         }
     }
 
-    if (msg.content === 'qual a boa?') {
-        msg.channel.send(`Bro... shut up, and choose a music😡`)
+    if (msg.content === 'qual a boa?' || 'qual é a boa?') {
+        msg.reply(`Bro... shut up, and choose a music😡`)
     }
-
-
 })
 
 const playMusic = (msg) => {
