@@ -68,6 +68,7 @@ client.on('message', async (msg) => {
         servers[msg.guild.id].dispatcher = null
         servers[msg.guild.id].imPlaying = false
         servers[msg.guild.id].queue = []
+        msg.channel.send(`Ok men... got it😰`)
     }
 
     if (msg.content.startsWith(prefix + 'play')) {
