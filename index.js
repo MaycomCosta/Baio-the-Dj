@@ -146,7 +146,7 @@ client.on('message', async (msg) => {
                                     const reaction = collected.first()
                                     const idOptionSelected = possibelReaction.indexOf(reaction.emoji.name)
 
-                                    msg.channel.send(`you choose ${listResults[idOptionSelected].videoTitle} of ${listResults[idOptionSelected].channelName} (Good music bro 😉)`)
+                                    msg.channel.send(`you choose ${listResults[idOptionSelected].videoTitle} of ${listResults[idOptionSelected].channelName} (I am back and good music bro 😉)`)
 
                                     servers[msg.guild.id].queue.push(listResults[idOptionSelected].id)
                                     playMusic(msg)
