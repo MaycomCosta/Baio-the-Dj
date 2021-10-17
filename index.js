@@ -40,7 +40,7 @@ client.on('ready', () => {
 
 client.on('message', async (msg) => {
 
-    // filters
+    //filters
 
     if (!msg.guild) return
 
@@ -51,7 +51,7 @@ client.on('message', async (msg) => {
         return
     }
 
-    // commands 
+    //commands 
 
     if (msg.content === prefix + 'join') {
         try {
