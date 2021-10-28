@@ -39,7 +39,6 @@ client.on('ready', () => {
 })
 
 client.on('message', async (msg) => {
-
     //filters
 
     if (!msg.guild) return
@@ -50,7 +49,6 @@ client.on('message', async (msg) => {
         msg.channel.send(`Hey you are not in a voice channel!`)
         return
     }
-
     //commands 
 
     if (msg.content === prefix + 'join') {
