@@ -3,6 +3,12 @@ const google = require('googleapis')
 const ytdl = require('ytdl-core')
 const fs = require('fs')
 
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '.env') })
+
+const discordSecret = process.env['TOKEN_DISCORD']
+const googleSecret = process.env['GOOGLE_KEY']
+
 const prefix = '-'
 
 const YTDL = {
@@ -11,7 +17,7 @@ const YTDL = {
 
 const youtube = new google.youtube_v3.Youtube({
     version: 'v3',
-    auth: env.GOOGLE_KEY
+    auth: googleSecret
 })
 const client = new Discord.Client()
 
@@ -250,4 +256,4 @@ const saveServer = (idNewServer) => {
         }
     })
 }
-client.login(env.TOKEN_DISCORD)
+client.login(discordSecret)
