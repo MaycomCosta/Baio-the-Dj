@@ -1,7 +1,6 @@
 const Discord = require('discord.js')
 const google = require('googleapis')
 const ytdl = require('ytdl-core')
-const configs = require('./config.json')
 const fs = require('fs')
 
 const prefix = '-'
@@ -12,7 +11,7 @@ const YTDL = {
 
 const youtube = new google.youtube_v3.Youtube({
     version: 'v3',
-    auth: configs.GOOGLE_KEY
+    auth: env.GOOGLE_KEY
 })
 const client = new Discord.Client()
 
@@ -251,4 +250,4 @@ const saveServer = (idNewServer) => {
         }
     })
 }
-client.login(configs.TOKEN_DISCORD)
+client.login(env.TOKEN_DISCORD)
